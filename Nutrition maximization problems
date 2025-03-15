@@ -1,0 +1,60 @@
+%Enter marks for dishes according your interest.
+%k1 = input('Enter your marks for Dhal dish:');
+%k3 = input('Enter your marks for brinjal dish:');
+%k4 = input('Enter your marks for carrot dish:');
+%k5 = input('Enter your marks for beans dish:');
+%k6 = input('Enter your marks for sweet potato dish:');
+%k7 = input('Enter your marks for beetroot dishes:');
+%k8 = input('Enter your marks for fish dishes:');
+%k9 = input('Enter your marks for sausages:');
+%[x1  x2  x3  x4  x5  x6  x7  x8  x9  y1  y2  y3  y4  y5  y6  y7  y8  y9]
+% x1 = number of Dhal dishes;
+% x2 = number of kankung dishes;
+% x3 = number of brinjal dishes;
+% x4 = number of carrot dishes;
+% x5 = number of beans dishes;
+% x6 = number of sweet potato dishes;
+% x7 = number of beetroot dishes;
+% x8 = number of fish dishes;
+% x9 = number of sausages dishes;
+% y1 to y9 = decision variable(like or not);
+f = [25     25     25   25    25      25     25      25      25    0   0   0   0   0   0   0   0   0]
+    
+int_con = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]; %Integers
+
+A = [1 0 0 0 0 0 0 0 0 -25 0 0 0 0 0 0 0 0; % (x1 <= 25y1)
+     0 1 0 0 0 0 0 0 0 0 -25 0 0 0 0 0 0 0; % (x2 <= 25y2)
+     0 0 1 0 0 0 0 0 0 0 0 -25 0 0 0 0 0 0; % (x3 <= 25y3)
+     0 0 0 1 0 0 0 0 0 0 0 0 -25 0 0 0 0 0; % (x4 <= 25y4)
+     0 0 0 0 1 0 0 0 0 0 0 0 0 -25 0 0 0 0; % (x5 <= 25y5)
+     0 0 0 0 0 1 0 0 0 0 0 0 0 0 -25 0 0 0; % (x6 <= 25y6)
+     0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 -25 0 0; % (x7 <= 25y7)
+     0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 -25 0; % (x8 <= 25y8)
+     0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 -25; % (x9 <= 25y9)
+     0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  1 1;  % (you should choose only sausages or fish)
+     %0    0    0  0   0     0    0     0     0    -k1   -k2   -k3   -k4   -k5   -k6   -k7   -k8   -k9;
+    -1     -0.65  -0.5 -0.2  -0.45   -0.4   -0.04   -5.02   -3.1   0   0   0   0   0   0   0   0   0; % constrain for Protein
+     0.395  0.05   0    0     0.025   0      0.04    0.042   3.3   0   0   0   0   0   0   0   0   0; % constrain for Fat
+    -2.25  -0.775 -2   -0.2  -1.75   -5     -2.39   -0.25   -0.2   0   0   0   0   0   0   0   0   0; % constrain for Carbohydrate
+     0     -2     -0.2  0    -0.045   0      0      -0.4    -0.7   0   0   0   0   0   0   0   0   0; % constrain for Calcium
+    -1.625 -1.9   -1.2 -1    -0.775  -2.2   -1.1     0.24    3.75  0   0   0   0   0   0   0   0   0;] % constrain for other nutrition]
+     
+    
+ A; 
+ b = [ 0 0 0 0 0 0 0 0 0 1   -25.4  44.5 -108.4 -3.998 -10.566];% R.H.S of constrains
+ 
+ Aeq = [0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1]; % you can choose exactly 4 curries
+ 
+ beq = [4];
+ 
+ lb = [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ];
+ 
+ up = [25 25 25 25 25 25 25 25 25 1 1 1 1 1 1 1 1 1];
+ 
+ [X,Z] = intlinprog(f,int_con,A,b,Aeq,beq,lb,up);
+ 
+ 
+ 
+ 
+    
+    
